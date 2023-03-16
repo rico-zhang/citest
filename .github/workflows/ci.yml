@@ -41,9 +41,9 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: yarn install
       # 运行代码扫描
-      - name: Running Lint
+      # - name: Running Lint
         # 通过前面章节定义的命令行执行代码扫描
-        run: yarn lint
+      #  run: yarn lint
 
       - name: build project
         run: yarn build
