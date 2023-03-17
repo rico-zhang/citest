@@ -3,7 +3,7 @@ name: CI
 # 这里的main分支相当于master分支，github项目新建是把main设置为默认分支，我懒得改了所以就保持这样吧
 on:
   push:
-    branches: [ "main" ]
+    branches: main
   pull_request:
     branches: main
 jobs:
@@ -42,8 +42,13 @@ jobs:
         run: yarn install
       # 运行代码扫描
       # - name: Running Lint
-        # 通过前面章节定义的命令行执行代码扫描
+      # 通过前面章节定义的命令行执行代码扫描
       #  run: yarn lint
 
       - name: build project
         run: yarn build
+      - name: 打包镜像, 上传 Docker Hub
+        run: |
+          docker login -u ${{secrets.DOCKER_USERNAME }} -p  ${{ secrets.DOCKER_PASSWORD }}
+          docker build --platform linux/amd64 -t ${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:latest  .
+          docker push ${{ secrets.DOCKER_REPOSITORY }}
