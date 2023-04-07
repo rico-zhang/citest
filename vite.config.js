@@ -6,6 +6,7 @@ export default defineConfig({
   build: {
     outDir: 'docs',
   },
-  base: '',
+  // base: './',
+  base: '/citest/',
   plugins: [vue()],
 });
